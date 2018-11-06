@@ -13,4 +13,7 @@ describe Oystercard do
     expect(oystercard.balance).to eq(9)
   end
 
+  it 'has a maximum limit of 90 pounds' do
+    expect{oystercard.top_up(Oystercard::MAX_LIMIT + 1)}.to raise_error
+  end
 end
