@@ -16,4 +16,11 @@ describe "feature tests" do
     expect{card.top_up(91)}.to raise_error
   end
 
+  it 'can decudt an amount from the balance' do
+    card = Oystercard.new
+    card.top_up(10)
+    card.deduct(5)
+    expect(card.balance).to eq(5)
+  end
+
 end

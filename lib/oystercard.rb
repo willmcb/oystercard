@@ -12,4 +12,13 @@ class Oystercard
     error_message = "Error: card limit is #{MAX_LIMIT}"
     max_reached ? (raise error_message) : @balance += amount
   end
+
+  def deduct(amount)
+    if @balance - amount < 0
+      raise("balance cannot be negative")
+    else
+      @balance -= amount
+    end
+  end
+
 end
