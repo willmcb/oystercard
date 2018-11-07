@@ -25,10 +25,16 @@ describe "feature tests" do
 
   it 'has touch in and out functionality' do
     card = Oystercard.new
+    card.top_up(10)
     card.touch_in
     in_journey = card.in_journey?
     card.touch_out
     expect(in_journey).to be(true)
     expect(card.in_journey?).to be(false)
+  end
+
+  it "can't be touched in if balance is less than the minimum fare" do
+    card = Oystercard.new
+    expect{ card.touch_in }.to raise_error
   end
 end
