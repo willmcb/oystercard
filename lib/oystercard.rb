@@ -1,5 +1,5 @@
 class Oystercard
-  attr_reader :balance
+  attr_accessor :balance
 
   MAX_LIMIT = 90
   MINIMUM_FARE = 1
@@ -13,14 +13,6 @@ class Oystercard
     max_reached = @balance + amount > MAX_LIMIT
     error_message = "Error: card limit is #{MAX_LIMIT}"
     max_reached ? (raise error_message) : @balance += amount
-  end
-
-  def deduct(amount)
-    if @balance - amount < 0
-      raise("balance cannot be negative")
-    else
-      @balance -= amount
-    end
   end
 
   def in_journey?
@@ -41,6 +33,7 @@ class Oystercard
     if !@journey
       raise "Card not touched in!"
     else
+      deduct(MINIMUM_FARE)
       @journey = false
     end
   end
@@ -48,5 +41,13 @@ class Oystercard
   private
   def balance_above_min_fare?
    @balance <= MINIMUM_FARE
+  end
+
+  def deduct(amount)
+    if @balance - amount < 0
+      raise("balance cannot be negative")
+    else
+      @balance -= amount
+    end
   end
 end
