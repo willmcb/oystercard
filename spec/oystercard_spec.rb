@@ -53,4 +53,9 @@ describe Oystercard do
     oystercard.touch_in
     expect{oystercard.touch_out}.to change{oystercard.balance}.by(-Oystercard::MINIMUM_FARE)
   end
+
+  it "stores the location of place last touched in" do
+    oystercard.touch_in('barbican')
+    expect(oystercard.travelled_from).to eq('barbican')
+  end
 end

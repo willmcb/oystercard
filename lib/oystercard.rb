@@ -1,5 +1,5 @@
 class Oystercard
-  attr_accessor :balance
+  attr_accessor :balance, :travelled_from
 
   MAX_LIMIT = 90
   MINIMUM_FARE = 1
@@ -7,6 +7,7 @@ class Oystercard
   def initialize
     @balance = 0
     @journey = false
+    @travelled_from = ''
   end
 
   def top_up(amount)
@@ -19,13 +20,14 @@ class Oystercard
     @journey
   end
 
-  def touch_in
+  def touch_in(location = '')
     if @journey
       raise "Card already touched in!"
     elsif balance_above_min_fare?
       raise "You have less than minimum fare: please top up!"
     else
       @journey = true
+      @travelled_from = location
     end
   end
 

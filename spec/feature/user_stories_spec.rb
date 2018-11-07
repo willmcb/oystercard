@@ -37,4 +37,11 @@ describe "Feature tests: " do
     card.touch_in
     expect{card.touch_out}.to change{card.balance}.by(-Oystercard::MINIMUM_FARE)
   end
+
+  it "store where I have travelled from" do
+    card = Oystercard.new
+    card.top_up(10)
+    card.touch_in('barbican')
+    expect(card.travelled_from).to eq('barbican')
+  end
 end
