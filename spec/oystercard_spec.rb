@@ -59,6 +59,6 @@ describe Oystercard do
     oystercard.touch_out('island gardens')
     oystercard.touch_in('island gardens')
     oystercard.touch_out('barbican')
-    expect(oystercard.print_journey_history).to eq("barbican : island gardens\n, island gardens : barbican\n")
+    expect{oystercard.print_journey_history}.to output("barbican : island gardens\nisland gardens : barbican\n").to_stdout
   end
 end

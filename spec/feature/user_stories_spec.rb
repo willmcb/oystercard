@@ -42,7 +42,7 @@ describe "Feature tests: " do
     card = Oystercard.new
     card.top_up(10)
     card.touch_in('barbican')
-    expect(card.travelled_from).to eq('barbican')
+    expect(card.journey_builder.first).to eq('barbican')
   end
 
   it "print a list of my journeys" do
@@ -52,6 +52,6 @@ describe "Feature tests: " do
     card.touch_out('island gardens')
     card.touch_in('island gardens')
     card.touch_out('barbican')
-    expect(card.print_journey_history).to eq("barbican : island gardens\n, island gardens : barbican\n")
+    expect{card.print_journey_history}.to output("barbican : island gardens\nisland gardens : barbican\n").to_stdout
   end
 end

@@ -1,5 +1,5 @@
 class Oystercard
-  attr_accessor :balance, :travelled_from
+  attr_accessor :balance, :travelled_from, :journey_builder
 
   MAX_LIMIT = 90
   MINIMUM_FARE = 1
@@ -7,7 +7,8 @@ class Oystercard
   def initialize
     @balance = 0
     @journey = false
-    @travelled_from = ''
+    @journey_history = []
+    @journey_builder = []
   end
 
   def top_up(amount)
@@ -27,16 +28,25 @@ class Oystercard
       raise "You have less than minimum fare: please top up!"
     else
       @journey = true
-      @travelled_from = location
+      @journey_builder << location
     end
   end
 
-  def touch_out
+  def touch_out(location = '')
     if !@journey
       raise "Card not touched in!"
     else
       deduct(MINIMUM_FARE)
       @journey = false
+      @journey_builder << location
+      @journey_history << @journey_builder
+      @journey_builder = []
+    end
+  end
+
+  def print_journey_history
+    @journey_history.each do |journey|
+      puts "#{journey.first} : #{journey.last}"
     end
   end
 
