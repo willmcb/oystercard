@@ -33,6 +33,7 @@ describe Oystercard do
   end
 
   it 'can be touched out' do
+    oystercard.touch_in
     expect{ oystercard.touch_out }.not_to raise_error
   end
 
@@ -42,7 +43,6 @@ describe Oystercard do
   end
 
   it "can't be touched out if not previously touched in" do
-    oystercard.touch_out
     expect{ oystercard.touch_out }.to raise_error "Card not touched in!"
   end
 
@@ -52,9 +52,9 @@ describe Oystercard do
   end
 
   it "changes journey to false when touched out" do
+    oystercard.touch_in
     oystercard.touch_out
     expect(oystercard.in_journey?).to eq(false)
   end
-
 
 end
