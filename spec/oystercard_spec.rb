@@ -27,4 +27,34 @@ describe Oystercard do
     oystercard.top_up(10)
     expect{oystercard.deduct(15)}.to raise_error("balance cannot be negative")
   end
+
+  it 'can be touched in' do
+    expect{ oystercard.touch_in }.not_to raise_error
+  end
+
+  it 'can be touched out' do
+    expect{ oystercard.touch_out }.not_to raise_error
+  end
+
+  it "can't be touched in if in journey" do
+    oystercard.touch_in
+    expect{ oystercard.touch_in }.to raise_error "Card already touched in!"
+  end
+
+  it "can't be touched out if not previously touched in" do
+    oystercard.touch_out
+    expect{ oystercard.touch_out }.to raise_error "Card not touched in!"
+  end
+
+  it "changes journey to true when touched in" do
+    oystercard.touch_in
+    expect(oystercard.in_journey?).to eq(true)
+  end
+
+  it "changes journey to false when touched out" do
+    oystercard.touch_out
+    expect(oystercard.in_journey?).to eq(false)
+  end
+
+
 end
