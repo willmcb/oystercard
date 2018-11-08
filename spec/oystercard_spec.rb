@@ -55,10 +55,13 @@ describe Oystercard do
   end
 
   it "print a list of my journeys" do
-    oystercard.touch_in('barbican')
-    oystercard.touch_out('island gardens')
-    oystercard.touch_in('island gardens')
-    oystercard.touch_out('barbican')
-    expect{oystercard.print_journey_history}.to output("barbican : island gardens\nisland gardens : barbican\n").to_stdout
+    barbican = Station.new("barbican", 1)
+    lewisham = Station.new("lewisham", 3)
+    oystercard.top_up(10)
+    oystercard.touch_in(barbican)
+    oystercard.touch_out(lewisham)
+    oystercard.touch_in(lewisham)
+    oystercard.touch_out(barbican)
+    expect{oystercard.print_journey_history}.to output("barbican (zone 1) : lewisham (zone 3)\nlewisham (zone 3) : barbican (zone 1)\n").to_stdout
   end
 end

@@ -46,7 +46,7 @@ class Oystercard
 
   def print_journey_history
     @journey_history.each do |journey|
-      puts "#{journey.first} : #{journey.last}"
+      puts "#{journey.first.name} (zone #{journey.first.zone}) : #{journey.last.name} (zone #{journey.last.zone})"
     end
   end
 

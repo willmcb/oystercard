@@ -45,25 +45,15 @@ describe "Feature tests: " do
     expect(card.journey_builder.first).to eq('barbican')
   end
 
-  it "print a list of my journeys" do
-    card = Oystercard.new
-    card.top_up(10)
-    card.touch_in('barbican')
-    card.touch_out('island gardens')
-    card.touch_in('island gardens')
-    card.touch_out('barbican')
-    expect{card.print_journey_history}.to output("barbican : island gardens\nisland gardens : barbican\n").to_stdout
-  end
-
   it "can use station classes" do
     card = Oystercard.new
     barbican = Station.new("barbican", 1)
     lewisham = Station.new("lewisham", 3)
-
+    card.top_up(10)
     card.touch_in(barbican)
     card.touch_out(lewisham)
     card.touch_in(lewisham)
     card.touch_out(barbican)
-    expect{card.print_journey_history}.to output("barbican (zone 1) : lewisham (zone 3) \nlewisham (zone 3) : barbican (zone 1)\n").to_stdout
+    expect{card.print_journey_history}.to output("barbican (zone 1) : lewisham (zone 3)\nlewisham (zone 3) : barbican (zone 1)\n").to_stdout
   end
 end
